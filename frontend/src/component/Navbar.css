@@ -1,0 +1,55 @@
+.navbar-dark .nav-link {
+  transition: 0.3s ease;
+}
+.navbar-dark .nav-link:hover {
+  color: #ffd54f !important;
+}
+
+.btn-outline-primary {
+  border-color: #007bff;
+  color: #007bff;
+}
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.navbar {
+  transition: all 0.3s ease;
+  min-height: 50px; /* tinggi navbar stabil */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+.navbar-collapse {
+  background-color: white !important;
+  padding: 1rem;
+  position: absolute;
+  top: 70px; /* tinggi navbar kamu */
+  left: 0;
+  width: 100%;
+  z-index: 999; /* biar di atas hero section */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Biar transisi buka/tutup mulus */
+.navbar-collapse.collapsing {
+  transition: height 0.3s ease;
+}
+
+/* Biar nggak nutup sebagian konten di bawahnya */
+.navbar.fixed-top + * {
+  margin-top: 70px; /* sesuai tinggi navbar kamu */
+}
+
+/* Supaya di layar besar tetap normal */
+@media (min-width: 992px) {
+  .navbar-collapse {
+    position: static;
+    top: auto;
+    box-shadow: none;
+    padding: 0;
+  }
+}

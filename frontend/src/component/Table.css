@@ -1,0 +1,44 @@
+h1, h3 {
+  text-align: center;
+  color: #2d2d2d;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+a .download-jadwal{
+  margin-bottom: 100px;
+}
+
+/* Scroll horizontal di layar kecil */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Pastikan tabel nggak mepet */
+table {
+  font-size: 0.9rem;
+  min-width: 600px; /* biar struktur kolom gak berantakan */
+}
+
+/* Teks di cell bisa turun baris */
+td, th {
+  white-space: normal !important;
+  word-wrap: break-word;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Tombol agar rapi di mobile */
+@media (max-width: 576px) {
+  .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}
+
+option {
+  text-align: center;
+}

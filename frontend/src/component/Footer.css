@@ -1,0 +1,110 @@
+footer {
+  background-color: #ffffff;
+  color: #2f4f2f;
+  margin: 0;
+  width: 100vw; /* biar lebar sesuai layar penuh */
+}
+
+.row-main img {
+  width: 150px;
+  height: auto;
+  padding-bottom: 30px;
+}
+
+.row {
+  padding: 50px;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+h4 {
+  padding-bottom: 10px;
+}
+
+.col-body {
+  margin-top: 30px;
+  display: flex;
+  flex: 3;
+  text-align: justify;
+  justify-content: flex-start; /* atur peletakan antar kolom flex */
+  align-items: flex-start;
+  gap: 50px; /* jarak antar kolom */
+}
+
+.col-alamat h4 {
+    margin-bottom: 10px;
+}
+
+.about {
+    max-width: 700px;
+}
+
+.about h4 {
+    margin-bottom: 10px;
+}
+
+.fitur h4 {
+    margin-bottom: 10px;
+}
+
+.fitur {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* teks rata kiri semua */
+}
+
+.service {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* teks rata kiri semua */
+}
+
+li {
+  padding-bottom: 10px;
+  list-style-type: none; /* hilangkan bullet */
+}
+
+a {
+  text-decoration: none;
+  color: #2f4f2f;
+  font-weight: light;
+}
+
+a:hover {
+  color: #939a93;
+}
+
+hr {
+  margin-top: 30px;
+}
+
+.row-footer {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.sosmed img {
+  width: 30px;
+}
+
+.sosmed ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sosmed li {
+  display: flex;
+  align-items: center; /* Biar logo & teks sejajar vertikal */
+  gap: 8px; /* Jarak antara logo dan teks */
+}
+
+.sosmed a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  padding-bottom: 30px;
+}

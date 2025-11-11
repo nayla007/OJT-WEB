@@ -1,0 +1,128 @@
+.features-section {
+  background-color: #fff;
+}
+
+.features-section i {
+  transition: transform 0.3s ease;
+}
+
+.features-section i:hover {
+  transform: scale(1.2);
+}
+
+.features-section .btn-warning {
+  transition: all 0.3s ease;
+}
+
+.features-section .btn-warning:hover {
+  background-color: #e9c837; /* gold tone */
+  color: white;
+  transform: translateY(-2px);
+}
+
+.about-section h2 {
+  font-size: 2rem;
+  color: #222;
+}
+
+.about-section p {
+  line-height: 1.7;
+}
+
+.about-section ul li {
+  font-size: 1rem;
+}
+
+.about-section .bi-check2 {
+  color: #00b894; /* warna centang hijau kebiruan seperti di contoh */
+}
+
+
+.testimonial-box {
+  border-left: 4px solid #8cc63f; /* garis hijau di kiri */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.news-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.news-card img {
+  object-fit: cover;
+  height: 230px;
+  width: 100%;
+}
+
+.slide-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
+
+.slide:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.logo-slider {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background-color: #f8f9fa; /* warna background sesuai section */
+  z-index: 1;
+  padding: 20px 0;
+}
+
+.slide-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
+
+.logo-slider .slide {
+  height: 100px;
+  width: 200px;
+  align-items: center;
+  justify-content: center;
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+
+.slide img {
+  max-height: 100px;
+  width: auto;
+}
+
+.slide:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.card-section{
+    background-color:rgb(73, 73, 73);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
