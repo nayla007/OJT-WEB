@@ -399,13 +399,12 @@ export default function Beranda() {
       {[...Array(2)].map((_, i) => (
         <React.Fragment key={i}>
           <div className="slide"><img src="/image/pt.png" alt="Logo 1" /></div>
-          <div className="slide"><img src="/image/logo2.png" alt="Logo 2" /></div>
-          <div className="slide"><img src="/image/logo3.png" alt="Logo 3" /></div>
-          <div className="slide"><img src="/image/logo4.png" alt="Logo 4" /></div>
-          <div className="slide"><img src="/image/logo5.png" alt="Logo 5" /></div>
-          <div className="slide"><img src="/image/logo6.png" alt="Logo 6" /></div>
-          <div className="slide"><img src="/image/logo7.png" alt="Logo 7" /></div>
-          <div className="slide"><img src="/image/logo8.png" alt="Logo 8" /></div>
+          <div className="slide"><img src="/image/pt3.JPG" alt="Logo 2" /></div>
+          <div className="slide"><img src="/image/pt4.JPG" alt="Logo 3" /></div>
+          <div className="slide"><img src="/image/pt5.JPG" alt="Logo 4" /></div>
+          <div className="slide"><img src="/image/pt6.JPG" alt="Logo 5" /></div>
+          <div className="slide"><img src="/image/pt7.JPG" alt="Logo 6" /></div>
+          
         </React.Fragment>
       ))}
     </div>

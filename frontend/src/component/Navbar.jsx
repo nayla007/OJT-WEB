@@ -48,13 +48,13 @@ export default function Navbar() {
           
           {/* 🔸 Kiri: Ikon Sosial Media */}
     <div className="d-flex align-items-center">
-      <a href="#" className="text-dark me-3">
+      <a href="https://www.instagram.com/geomandirigroupcreative/" className="text-dark me-3">
         <i className="bi bi-instagram"></i>
       </a>
-      <a href="#" className="text-dark me-3">
-        <i className="bi bi-twitter"></i>
+      <a href="https://id.linkedin.com/company/pt-geo-mandiri-kreasi" className="text-dark me-3">
+        <i className="bi bi-linkedin"></i>
       </a>
-      <a href="#" className="text-dark me-3">
+      <a href="https://www.facebook.com/geomandirigroup/" className="text-dark me-3">
         <i className="bi bi-facebook"></i>
       </a>
       <a href="#" className="text-dark me-3">
