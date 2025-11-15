@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function DaftarPelatihanCreate() {
   const navigate = useNavigate();
-  const [idKategori, setIdKategori] = useState("");
-  const [namaKategori, setNamaKategori] = useState("");
-  const [namaPelatihan, setNamaPelatihan] = useState("");
+  const [kategori, setKategori] = useState([]);
+  const [id_kategori, setIdKategori] = useState("");
+  const [nama_pelatihan, setNamaPelatihan] = useState("");
   const [tujuan, setTujuan] = useState("");
   const [persyaratan, setPersyaratan] = useState("");
   const [materiPembelajaran, setMateriPembelajaran] = useState("");
@@ -17,61 +17,63 @@ export default function DaftarPelatihanCreate() {
   const [fasilitas, setFasilitas] = useState("");
   const [contact, setContact] = useState("");
 
+  // FILE UPLOAD
+  const [fileMateri, setFileMateri] = useState(null);
+
+  // 👉 FETCH KATEGORI
+  useEffect(() => {
+    const fetchKategori = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/kategori-pelatihan");
+        setKategori(response.data);
+      } catch (error) {
+        console.error("Gagal mengambil data kategori:", error);
+      }
+    };
+
+    fetchKategori();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      console.log("Mengirim data: ", {
-        idKategori,
-        namaKategori,
-        namaPelatihan,
-        tujuan,
-        persyaratan,
-        materiPembelajaran,
-        instruktur,
-        sertifikasi,
-        metodePembelajaran,
-        biaya,
-        fasilitas,
-        contact,
-      });
+      const formData = new FormData();
+      formData.append("id_kategori", id_kategori);
+    formData.append("nama_pelatihan", nama_pelatihan);
+    formData.append("tujuan", tujuan);
+    formData.append("persyaratan", persyaratan);
+    formData.append("materi_pembelajaran", materiPembelajaran);
+    formData.append("instruktur", instruktur);
+    formData.append("sertifikasi", sertifikasi);
+    formData.append("metode_pembelajaran", metodePembelajaran);
+    formData.append("biaya", biaya);
+    formData.append("fasilitas", fasilitas);
+    formData.append("contact", contact);
+
+      // FILE
+      if (fileMateri) {
+        formData.append("file", fileMateri);
+      }
 
       const response = await axios.post(
         "http://localhost:5000/daftar-pelatihan",
+        formData,
         {
-          id_kategori: Number(idKategori),
-          nama_kategori: namaKategori,
-          nama_pelatihan: namaPelatihan,
-          tujuan: tujuan,
-          persyaratan: persyaratan,
-          materi_pembelajaran: materiPembelajaran,
-          instruktur: instruktur,
-          sertifikasi: sertifikasi,
-          metode_pembelajaran: metodePembelajaran,
-          biaya: biaya,
-          fasilitas: fasilitas,
-          contact: contact,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
 
-      console.log("Response dari server:", response.data);
+      console.log("Response server:", response.data);
+
       alert("✅ Data berhasil disimpan!");
-      setIdKategori("");
-      setNamaKategori("");
-      setNamaPelatihan("");
-      setTujuan("");
-      setPersyaratan("");
-      setMateriPembelajaran("");
-      setInstruktur("");
-      setSertifikasi("");
-      setMetodePembelajaran("");
-      setBiaya("");
-      setFasilitas("");
-      setContact("");
       navigate("/admin/daftar-pelatihan");
+
     } catch (error) {
-      console.error("Gagal menyimpan data: ", error.response || error);
-      alert("Gagagl meyimpan data. Cek console untuk detail.");
+      console.error("Gagal menyimpan data:", error.response || error);
+      alert("❌ Gagal menyimpan data! Lihat console.");
     }
   };
 
@@ -81,39 +83,24 @@ export default function DaftarPelatihanCreate() {
         <div className="container">
           <h3 className="text-center mb-4">Tambah Daftar Pelatihan</h3>
 
-          <div className="mb-3 row">
-            <label htmlFor="id_kategori" className="col-sm-2 col-form-label">
-              Id Kategori
-            </label>
-            <div className="col-sm-10">
-              <input
-                type="text"
-                placeholder="Id Kategori"
-                className="form-control"
-                id="id_kategori"
-                value={idKategori}
-                onChange={(e) => setIdKategori(e.target.value)}
-                required
-              />
-            </div>
-          </div>
-
-          <div className="mb-3 row">
-            <label htmlFor="nama_kategori" className="col-sm-2 col-form-label">
-              Nama Kategori
-            </label>
-            <div className="col-sm-10">
-              <input
-                type="text"
-                placeholder="Nama Kategori"
-                className="form-control"
-                id="nama_kategori"
-                value={namaKategori}
-                onChange={(e) => setNamaKategori(e.target.value)}
-                required
-              />
-            </div>
-          </div>
+          {/* Pilih Kategori */}
+        <div className="mb-3 row">
+  <label className="col-sm-2 col-form-label">Kategori</label>
+  <div className="col-sm-10">
+    <select
+      className="form-control"
+      value={id_kategori}
+      onChange={(e) => setIdKategori(e.target.value)}
+    >
+      <option value="">-- Pilih Kategori --</option>
+      {kategori.map((k) => (
+        <option key={k.id_kategori} value={k.id_kategori}>
+          {k.nama_kategori}
+        </option>
+      ))}
+    </select>
+  </div>
+</div>
 
           <div className="mb-3 row">
             <label htmlFor="nama_pelatihan" className="col-sm-2 col-form-label">
@@ -125,7 +112,7 @@ export default function DaftarPelatihanCreate() {
                 placeholder="Nama Pelatihan"
                 className="form-control"
                 id="nama_pelatihan"
-                value={namaPelatihan}
+                value={nama_pelatihan}
                 onChange={(e) => setNamaPelatihan(e.target.value)}
                 required
               />
@@ -290,6 +277,18 @@ export default function DaftarPelatihanCreate() {
               />
             </div>
           </div>
+
+          <div className="mb-3 row">
+  <label className="col-sm-2 col-form-label">Upload File</label>
+  <div className="col-sm-10">
+    <input
+      type="file"
+      className="form-control"
+      onChange={(e) => setFileMateri(e.target.files[0])}
+      accept=".pdf,.doc,.docx,.jpg,.png"
+    />
+  </div>
+</div>
 
           <div className="text-end">
             <button className="btn btn-primary" type="submit">

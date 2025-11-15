@@ -1,0 +1,15 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.15); /* transparan tipis */
+  backdrop-filter: blur(15px); /* efek kaca buram */
+  -webkit-backdrop-filter: blur(15px);
+  border-right: 1px solid rgba(255, 255, 255, 0.2); /* garis pemisah lembut */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  color: white;
+  border-radius: 0 20px 20px 0;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}

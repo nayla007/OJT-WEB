@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Table({ data, className, onDelete, onEdit }) {
+function Tabel({ data, className, onDelete, onEdit }) {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
@@ -49,6 +49,7 @@ function Table({ data, className, onDelete, onEdit }) {
           <th>Bidang</th>
            <th scope="col">Bulan</th>
           <th scope="col">Tanggal</th>
+          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -75,11 +76,26 @@ function Table({ data, className, onDelete, onEdit }) {
 </select>
             </td>
             <td>{item.tanggal}</td>
+            <td>
+                <button
+                  className="btn btn-warning btn-sm me-2"
+                  onClick={() => onEdit(item)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => onDelete(item.id)}
+                >
+                  Hapus
+                </button>
+              </td>
               
             </tr>
           ))
         ) : (
           <tr>
+
             <td colSpan="6">Belum ada data</td>
           </tr>
         )}
@@ -90,4 +106,4 @@ function Table({ data, className, onDelete, onEdit }) {
   );
 }
 
-export default Table; 
+export default Tabel; 

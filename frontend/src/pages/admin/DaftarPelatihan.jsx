@@ -5,44 +5,87 @@ import { useNavigate } from "react-router-dom";
 const API_KATEGORI = "http://localhost:5000/kategori-pelatihan";
 
 export default function DaftarPelatihan() {
-  const [kategori, setKategori] = useState([]);
-  const [selected, setSelected] = useState(null);
+  // const [kategori, setKategori] = useState([]);
+  // const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
 
-  const loadKategori = async () => {
+  const [kategori, setKategori] = useState([]);
+  const [selected, setSelected] = useState(null);
+
+  const fetchData = async () => {
     try {
-      const res = await axios.get(API_KATEGORI);
-      setKategori(res.data);
-    } catch (e) {
-      console.error(e);
+      const kat = await axios.get("http://localhost:5000/kategori-pelatihan");
+      const pel = await axios.get("http://localhost:5000/daftar-pelatihan");
+
+      const gabung = kat.data.map((k) => ({
+        ...k,
+        daftar_pelatihan: pel.data.filter(
+          (p) => p.id_kategori === k.id_kategori
+        ),
+      }));
+
+      setKategori(gabung);
+    } catch (err) {
+      console.error("Gagal memuat data:", err);
     }
   };
 
+  // Load pertama kali
   useEffect(() => {
-    const loadKategori = async () => {
-      try {
-        // ambil kategori
-        const kat = await axios.get("http://localhost:5000/kategori-pelatihan");
-
-        // ambil daftar pelatihan
-        const pel = await axios.get("http://localhost:5000/daftar-pelatihan");
-
-        // gabungkan manual berdasarkan id_kategori
-        const kategoriFinal = kat.data.map((k) => ({
-          ...k,
-          daftar_pelatihan: pel.data.filter(
-            (p) => p.id_kategori === k.id_kategori
-          ),
-        }));
-
-        setKategori(kategoriFinal);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    loadKategori();
+    fetchData();
   }, []);
+
+  // ===============================
+  // DELETE PELATIHAN
+  // ===============================
+  const handleDelete = async (id) => {
+    if (!window.confirm("Yakin ingin hapus pelatihan ini?")) return;
+
+    try {
+      await axios.delete(`http://localhost:5000/daftar-pelatihan/${id}`);
+      alert("Data berhasil dihapus!");
+
+      fetchData(); // <-- REFRESH DATA
+    } catch (err) {
+      console.error("Gagal menghapus:", err);
+      alert("Gagal menghapus data. Cek backend.");
+    }
+  };
+
+  // const loadKategori = async () => {
+  //   try {
+  //     const res = await axios.get(API_KATEGORI);
+  //     setKategori(res.data);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const loadKategori = async () => {
+  //     try {
+  //       // ambil kategori
+  //       const kat = await axios.get("http://localhost:5000/kategori-pelatihan");
+
+  //       // ambil daftar pelatihan
+  //       const pel = await axios.get("http://localhost:5000/daftar-pelatihan");
+
+  //       // gabungkan manual berdasarkan id_kategori
+  //       const kategoriFinal = kat.data.map((k) => ({
+  //         ...k,
+  //         daftar_pelatihan: pel.data.filter(
+  //           (p) => p.id_kategori === k.id_kategori
+  //         ),
+  //       }));
+
+  //       setKategori(kategoriFinal);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   loadKategori();
+  // }, []);
 
   // useEffect(() => {
   //   console.log("Kategori lengkap:", kategori);
@@ -62,29 +105,29 @@ export default function DaftarPelatihan() {
   // }, []);
 
   // render sidebar (sama seperti sebelumnya)
-  {
-    kategori.map((k) => (
-      <button key={k.id_kategori} onClick={() => setSelected(k.id_kategori)}>
-        {k.nama_kategori}
-      </button>
-    ));
-  }
+  // {
+  //   kategori.map((k) => (
+  //     <button key={k.id_kategori} onClick={() => setSelected(k.id_kategori)}>
+  //       {k.nama_kategori}
+  //     </button>
+  //   ));
+  // }
 
-  // render isi -> PENTING: gunakan .data (sesuai include di Prisma)
-  {
-    kategori
-      .find((k) => k.id_kategori === selected)
-      ?.data?.map((pel, i) => (
-        <div key={pel.id_pelatihan}>
-          <h5>{pel.nama_pelatihan}</h5>
-          <p>{pel.tujuan}</p>
-          {/* dsb */}
-        </div>
-      ));
-  }
+  // // render isi -> PENTING: gunakan .data (sesuai include di Prisma)
+  // {
+  //   kategori
+  //     .find((k) => k.id_kategori === selected)
+  //     ?.data?.map((pel, i) => (
+  //       <div key={pel.id_pelatihan}>
+  //         <h5>{pel.nama_pelatihan}</h5>
+  //         <p>{pel.tujuan}</p>
+  //         {/* dsb */}
+  //       </div>
+  //     ));
+  // }
 
   return (
-    <div className="container py-5">
+    <div className="container py-3">
       <div className="text-center mb-4">
         <h2 className="fw-bold text-dark">Daftar Pelatihan K3</h2>
         <p className="text-muted">
@@ -93,19 +136,23 @@ export default function DaftarPelatihan() {
         </p>
       </div>
 
-      <div className="mb-3">
-        <button
-          className="btn btn-primary"
-          type="button"
-          onClick={() => navigate("/admin/daftar-pelatihan-create")}
-        >
-          Tambah Data Baru
-        </button>
-      </div>
+      
 
       <div className="row justify-content-center">
         <div className="col-lg-10">
           <div className="card shadow border-0 rounded-3 overflow-hidden">
+            {/* === CARD HEADER === */}
+  <div className="card-header d-flex justify-content-between align-items-center bg-white">
+    <h5 className="fw-bold text-success mb-0">Daftar Pelatihan</h5>
+
+    <button
+      className="btn btn-primary"
+      type="button"
+      onClick={() => navigate("/admin/daftar-pelatihan-create")}
+    >
+      Tambah Data Baru
+    </button>
+  </div>
             <div className="row g-0">
               {/* SIDEBAR */}
               <div className="col-md-4 bg-light border-end">
@@ -113,19 +160,20 @@ export default function DaftarPelatihan() {
                   <h5 className="fw-bold text-success mb-3">
                     Kategori Pelatihan
                   </h5>
-                  {kategori.map((k) => (
-                    <button
-                      key={k.id_kategori}
-                      className={`list-group-item list-group-item-action mb-2 ${
-                        selected === k.id_kategori
-                          ? "active bg-success text-white"
-                          : ""
-                      }`}
-                      onClick={() => setSelected(k.id_kategori)}
-                    >
-                      {k.nama_kategori}
-                    </button>
-                  ))}
+                  {/* Kategori */}
+      <div className="list-group mb-4">
+        {kategori.map((k) => (
+          <button
+            key={k.id_kategori}
+            className={`list-group-item list-group-item-action ${
+              selected === k.id_kategori ? "active" : ""
+            }`}
+            onClick={() => setSelected(k.id_kategori)}
+          >
+            {k.nama_kategori}
+          </button>
+        ))}
+      </div>
                 </div>
               </div>
 
@@ -206,6 +254,20 @@ export default function DaftarPelatihan() {
                                 <h6>Materi</h6>
                                 <p>{pel.materi_pembelajaran}</p>
 
+                                {/* 🔥 TAMBAH BAGIAN FILE DI SINI */}
+    {pel.file_url && (
+      <>
+        <h6>File Materi</h6>
+        <a
+          href={`http://localhost:5000/uploads/${pel.file_url}`}
+          target="_blank"
+          className="btn btn-info btn-sm mb-3"
+        >
+          Lihat / Download File
+        </a>
+      </>
+    )}
+
                                 <div className="d-flex justify-content-end gap-2">
                                   <button
                                     className="btn btn-warning btn-sm"
@@ -219,22 +281,11 @@ export default function DaftarPelatihan() {
                                   </button>
 
                                   <button
-                                    className="btn btn-danger btn-sm"
-                                    onClick={async () => {
-                                      if (window.confirm("Yakin ingin hapus?")) {
-      try {
-        await axios.delete(`http://localhost:5000/daftar-pelatihan/${pel.id_pelatihan}`);
-        alert("Data pelatihan berhasil dihapus!");
-        loadKategori(); // refresh tampilan
-      } catch (err) {
-        console.error("Gagal hapus pelatihan:", err.response?.data || err.message);
-        alert("Gagal menghapus data pelatihan. Coba cek server backend.");
-      }
-    }
-  }}
-                                  >
-                                    Hapus
-                                  </button>
+                      className="btn btn-danger btn-sm"
+                      onClick={() => handleDelete(pel.id_pelatihan)}
+                    >
+                      Hapus
+                    </button>
                                 </div>
                               </div>
                             </div>
