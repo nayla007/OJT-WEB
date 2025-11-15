@@ -20,6 +20,7 @@ const app = express();
 
 // middleware
 app.use(cors({ origin: "http://localhost:5173" }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
@@ -28,6 +29,7 @@ app.use('/api/auth', AuthRoute)
 app.use('/api/admin', AdminRoute)
 app.use("/kategori-pelatihan", KategoriPelatihanRoute);
 app.use("/daftar-pelatihan", DaftarPelatihanRoute);
+app.use('/uploads', express.static('uploads'));
 
 app.use((err, req, res, next) => {
   console.error(err);

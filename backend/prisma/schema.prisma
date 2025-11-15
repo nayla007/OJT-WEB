@@ -8,45 +8,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Admin {
-  id       Int     @id @default(autoincrement())
-  username String  @unique
-  password String
-  role     String  @default("admin")
-  akses    Boolean @default(false)
-}
-
-model Jadwal {
-  id      Int    @id @default(autoincrement())
-  bidang  String
-  nama    String
-  harga   Int
-  jmlHari Int
-  bulan   String?
-  tanggal String?
-}
-
-model DataPendaftar {
-  id            Int    @id @default(autoincrement())
-  institusi     String
-  alamat        String
-  telepon       String
-  fax           String
-  email         String
-  namaPeserta   String
-  telPeserta    String
-  emailPeserta  String
-  pelatihan     String
-}
-
 model kategori_pelatihan {
-  id_kategori   Int @id @default(autoincrement())
+  id_kategori   Int              @id @default(autoincrement())
   nama_kategori String
   data          data_pelatihan[]
 }
 
 model data_pelatihan {
-  id_pelatihan        Int    @id @default(autoincrement())
+  id_pelatihan        Int                @id @default(autoincrement())
   nama_pelatihan      String?
   tujuan              String
   persyaratan         String
@@ -57,8 +26,40 @@ model data_pelatihan {
   biaya               String
   fasilitas           String
   contact             String
-  nama_kategori       String
+  id_kategori         Int
+  file_url            String?
+  kategori            kategori_pelatihan @relation(fields: [id_kategori], references: [id_kategori])
 
-  id_kategori Int
-  kategori    kategori_pelatihan @relation(fields: [id_kategori], references: [id_kategori])
+  @@index([id_kategori], map: "data_pelatihan_id_kategori_fkey")
+}
+
+model admin {
+  id       Int     @id @default(autoincrement())
+  username String  @unique(map: "Admin_username_key")
+  password String
+  role     String  @default("admin")
+  akses    Boolean @default(false)
+}
+
+model datapendaftar {
+  id           Int    @id @default(autoincrement())
+  institusi    String
+  alamat       String
+  telepon      String
+  fax          String
+  email        String
+  namaPeserta  String
+  telPeserta   String
+  emailPeserta String
+  pelatihan    String
+}
+
+model jadwal {
+  id      Int     @id @default(autoincrement())
+  bidang  String
+  nama    String
+  harga   Int
+  jmlHari Int
+  bulan   String?
+  tanggal String?
 }
