@@ -13,7 +13,7 @@ export default function DataPendaftarEdit() {
 
   const fetchDataById = () => {
     axios
-      .get(`http://localhost:5000/kategori-pelatihan/${id}`)
+      .get(`https://api.geomandirikreasi.pblweb0201.cloud/kategori-pelatihan/${id}`)
       .then((response) => {
         const DataBaru = response.data;
         setNamaKategori(DataBaru["nama_kategori"]);
@@ -28,7 +28,7 @@ export default function DataPendaftarEdit() {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:5000/kategori-pelatihan/${id}`, {
+      .put(`https://api.geomandirikreasi.pblweb0201.cloud/kategori-pelatihan/${id}`, {
         nama_kategori: namaKategori,
       })
       .then((response) => {

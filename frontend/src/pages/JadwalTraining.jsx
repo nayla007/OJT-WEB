@@ -21,7 +21,7 @@ function JadwalTraining() {
   // 🔹 Ambil data dari backend
   const fetchData = () => {
     axios
-      .get("http://localhost:5000/api/jadwal")
+      .get("https://api.geomandirikreasi.pblweb0201.cloud/api/jadwal")
       .then((res) => {
         console.log("Data dari backend:", res.data);
         setJadwalData(res.data);

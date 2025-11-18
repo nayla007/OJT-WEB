@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_KATEGORI = "http://localhost:5000/kategori-pelatihan";
+const API_KATEGORI = "https://api.geomandirikreasi.pblweb0201.cloud/kategori-pelatihan";
 
 export default function DaftarPelatihan() {
   // const [kategori, setKategori] = useState([]);
@@ -14,8 +14,8 @@ export default function DaftarPelatihan() {
 
   const fetchData = async () => {
     try {
-      const kat = await axios.get("http://localhost:5000/kategori-pelatihan");
-      const pel = await axios.get("http://localhost:5000/daftar-pelatihan");
+      const kat = await axios.get("https://api.geomandirikreasi.pblweb0201.cloud/kategori-pelatihan");
+      const pel = await axios.get("https://api.geomandirikreasi.pblweb0201.cloud/daftar-pelatihan");
 
       const gabung = kat.data.map((k) => ({
         ...k,
@@ -42,7 +42,7 @@ export default function DaftarPelatihan() {
     if (!window.confirm("Yakin ingin hapus pelatihan ini?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/daftar-pelatihan/${id}`);
+      await axios.delete(`https://api.geomandirikreasi.pblweb0201.cloud/daftar-pelatihan/${id}`);
       alert("Data berhasil dihapus!");
 
       fetchData(); // <-- REFRESH DATA
@@ -51,81 +51,7 @@ export default function DaftarPelatihan() {
       alert("Gagal menghapus data. Cek backend.");
     }
   };
-
-  // const loadKategori = async () => {
-  //   try {
-  //     const res = await axios.get(API_KATEGORI);
-  //     setKategori(res.data);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const loadKategori = async () => {
-  //     try {
-  //       // ambil kategori
-  //       const kat = await axios.get("http://localhost:5000/kategori-pelatihan");
-
-  //       // ambil daftar pelatihan
-  //       const pel = await axios.get("http://localhost:5000/daftar-pelatihan");
-
-  //       // gabungkan manual berdasarkan id_kategori
-  //       const kategoriFinal = kat.data.map((k) => ({
-  //         ...k,
-  //         daftar_pelatihan: pel.data.filter(
-  //           (p) => p.id_kategori === k.id_kategori
-  //         ),
-  //       }));
-
-  //       setKategori(kategoriFinal);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   loadKategori();
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("Kategori lengkap:", kategori);
-  // }, [kategori]);
-
-  //       const res = await axios.get(API_KATEGORI);
-  //       console.log("API kategori:", res.data); // <-- debug penting
-  //       setKategori(res.data);
-  //       if (!selected && res.data.length > 0) {
-  //         setSelected(res.data[0].id_kategori);
-  //       }
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-  //   loadKategori();
-  // }, []);
-
-  // render sidebar (sama seperti sebelumnya)
-  // {
-  //   kategori.map((k) => (
-  //     <button key={k.id_kategori} onClick={() => setSelected(k.id_kategori)}>
-  //       {k.nama_kategori}
-  //     </button>
-  //   ));
-  // }
-
-  // // render isi -> PENTING: gunakan .data (sesuai include di Prisma)
-  // {
-  //   kategori
-  //     .find((k) => k.id_kategori === selected)
-  //     ?.data?.map((pel, i) => (
-  //       <div key={pel.id_pelatihan}>
-  //         <h5>{pel.nama_pelatihan}</h5>
-  //         <p>{pel.tujuan}</p>
-  //         {/* dsb */}
-  //       </div>
-  //     ));
-  // }
-
+  
   return (
     <div className="container py-3">
       <div className="text-center mb-4">
@@ -242,7 +168,7 @@ export default function DaftarPelatihan() {
                                 <p>{pel.metode_pembelajaran}</p>
 
                                 <h6>Biaya</h6>
-                                <p>{pel.biaya}</p>
+                                <p>RP {new Intl.NumberFormat('id-ID').format(pel.biaya)}</p>
 
                                 <h6>Fasilitas</h6>
                                 <p>{pel.fasilitas}</p>
@@ -259,7 +185,7 @@ export default function DaftarPelatihan() {
       <>
         <h6>File Materi</h6>
         <a
-          href={`http://localhost:5000/uploads/${pel.file_url}`}
+          href={`https://api.geomandirikreasi.pblweb0201.cloud/uploads/pelatihan/${pel.file_url}`}
           target="_blank"
           className="btn btn-info btn-sm mb-3"
         >

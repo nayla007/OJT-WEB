@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = 'http://localhost:5000/api/auth';
+const API_URL = 'https://api.geomandirikreasi.pblweb0201.cloud/api/auth';
 
 const getToken = () => {
     return localStorage.getItem('admin_token');

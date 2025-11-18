@@ -11,10 +11,10 @@ export default function DaftarPelatihanEdit() {
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/kategori-pelatihan")
+    axios.get("https://api.geomandirikreasi.pblweb0201.cloud/kategori-pelatihan")
       .then((res) => setKategori(res.data));
 
-    axios.get(`http://localhost:5000/daftar-pelatihan/${id}`)
+    axios.get(`https://api.geomandirikreasi.pblweb0201.cloud/daftar-pelatihan/${id}`)
       .then((res) => setData(res.data));
   }, [id]);
 
@@ -34,7 +34,7 @@ export default function DaftarPelatihanEdit() {
     if (file) formData.append("file", file);
 
     await axios.put(
-      `http://localhost:5000/daftar-pelatihan/${id}`,
+      `https://api.geomandirikreasi.pblweb0201.cloud/daftar-pelatihan/${id}`,
       formData
     );
 

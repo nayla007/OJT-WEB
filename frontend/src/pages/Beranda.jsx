@@ -5,6 +5,7 @@ import Aos from 'aos';
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next"; // 
+import { BubbleChat } from "flowise-embed-react";
 
 export default function Beranda() {
   useEffect(() => {
@@ -409,6 +410,17 @@ export default function Beranda() {
       ))}
     </div>
   </div>
+
+  <BubbleChat
+          chatflowid="15d4ddd1-7c84-4ab9-9900-47340558cf13"
+          apiHost="https://cloud.flowiseai.com"
+          theme={{
+            button: {
+              backgroundColor: "#006d3b",
+              iconColor: "#FFFFFF",
+            },
+          }}
+        />
 </div>
 
 

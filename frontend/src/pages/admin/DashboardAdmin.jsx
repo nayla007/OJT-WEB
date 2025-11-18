@@ -9,24 +9,29 @@ export default function DashboardAdmin() {
   // 🧠 State buat nampung data asli dari backend
 const [dataPendaftar, setDataPendaftar] = useState([]);
 const [dataPelatihan, setDataPelatihan] = useState([]);
-//   const [dataSertifikat, setDataSertifikat] = useState([]);
+const [dataPeserta, setDataPeserta] = useState([]);
   const [dataJadwal, setDataJadwal] = useState([]);
 
   // 🧩 Ambil data dari backend
   useEffect(() => {
     // Ambil data jadwal training (🔥 ini yang penting)
-    axios.get("http://localhost:5000/api/jadwal")
+    axios.get("https://api.geomandirikreasi.pblweb0201.cloud/api/jadwal")
       .then(res => setDataJadwal(res.data))
       .catch(err => console.error("Gagal ambil data jadwal:", err));
 
       // Ambil data data peserta (🔥 ini yang penting)
-    axios.get("http://localhost:5000/api/data-pendaftar")
+    axios.get("https://api.geomandirikreasi.pblweb0201.cloud/api/data-pendaftar")
       .then(res => setDataPendaftar(res.data))
       .catch(err => console.error("Gagal ambil data jadwal:", err));
 
       // 🔹 Ambil data pelatihan (🔥 ini bagian penting)
-  axios.get("http://localhost:5000/daftar-pelatihan")
+  axios.get("https://api.geomandirikreasi.pblweb0201.cloud/daftar-pelatihan")
     .then(res => setDataPelatihan(res.data))
+    .catch(err => console.error("Gagal ambil data pelatihan:", err));
+
+    // 🔹 Ambil data pelatihan (🔥 ini bagian penting)
+  axios.get("https://api.geomandirikreasi.pblweb0201.cloud/api/data-peserta")
+    .then(res => setDataPeserta(res.data))
     .catch(err => console.error("Gagal ambil data pelatihan:", err));
   }, []);
 
@@ -41,14 +46,6 @@ const [dataPelatihan, setDataPelatihan] = useState([]);
 //     { id: 1, nama: "Pelatihan React" },
 //     { id: 2, nama: "Pelatihan Node.js" },
 //   ];
-
-  const dataPeserta = [
-    { id: 1, nomor: "CERT-001" },
-    { id: 2, nomor: "CERT-002" },
-    { id: 3, nomor: "CERT-003" },
-    { id: 4, nomor: "CERT-004" },
-  ];
-
   // Data card
   const cards = [
     {
@@ -70,7 +67,7 @@ const [dataPelatihan, setDataPelatihan] = useState([]);
       count: dataPeserta.length,
       color: "#ffc107",
       icon: "📜",
-      link: "/admin/sertifikat",
+      link: "/admin/data-peserta",
     },
     {
       title: "Jadwal Training",
@@ -157,12 +154,8 @@ const [dataPelatihan, setDataPelatihan] = useState([]);
           📈 Ringkasan Data
         </h4>
         <p style={{ lineHeight: "1.7" }}>
-          Total <strong>{dataPendaftar.length}</strong> pendaftar telah
-          mendaftar untuk <strong>{dataPelatihan.length}</strong> jenis pelatihan
-          yang tersedia. Hingga saat ini,{" "}
-          <strong>{dataPeserta.length}</strong> sertifikat telah diterbitkan,
-          dan terdapat <strong>{dataJadwal.length}</strong> jadwal training aktif
-          yang akan datang.
+          Total {dataPendaftar.length} pendaftar telah mendaftar untuk {dataPelatihan.length} jenis pelatihan yang tersedia. Saat ini, terdapat {dataPeserta.length} peserta yang sudah dikonfirmasi, dan {dataJadwal.length} jadwal training aktif yang akan datang.
+
         </p>
 
         <p style={{ color: "#6c757d" }}>

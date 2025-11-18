@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5000/kategori-pelatihan";
+const API_URL = "https://api.geomandirikreasi.pblweb0201.cloud/kategori-pelatihan";
 
 export default function KategoriPelatihan() {
   const [kategoriPelatihan, setKategoriPelatihan] = useState([]);
@@ -37,7 +37,7 @@ export default function KategoriPelatihan() {
     if (!confirmDelete) return;
 
     axios
-      .delete(`http://localhost:5000/kategori-pelatihan/${id}`)
+      .delete(`https://api.geomandirikreasi.pblweb0201.cloud/kategori-pelatihan/${id}`)
       .then((response) => {
         fetchKategoriPelatihan();
         alert("Data Berhasil dihapus");

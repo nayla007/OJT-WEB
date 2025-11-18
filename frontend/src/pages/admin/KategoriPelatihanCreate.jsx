@@ -13,7 +13,7 @@ export default function KategoriPelatihanCreate() {
       console.log("Mengirim data:", namaKategori);
 
       const response = await axios.post(
-        "http://localhost:5000/kategori-pelatihan",
+        "https://api.geomandirikreasi.pblweb0201.cloud/kategori-pelatihan",
         {
           nama_kategori: namaKategori,
         }

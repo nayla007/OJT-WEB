@@ -2,12 +2,14 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css"; 
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { Routes, Route } from "react-router-dom"; 
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 // Import Halaman Publik
 import Beranda from "./pages/Beranda";
 import Pelatihan from "./pages/Pelatihan";
 import JadwalTraining from "./pages/JadwalTraining";
 import Pendaftaran from "./pages/Pendaftaran";
+import Sertifikat from "./pages/Sertifikat";
 import PublicLayout from "./component/layouts/PublicLayout"; // <-- Layout baru untuk halaman publik
 
 // Import Halaman Admin
@@ -15,6 +17,7 @@ import AuthPage from "./pages/admin/AuthPage";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import DataPendaftar from "./pages/admin/DataPendaftar";
 import DataPendaftarEdit from "./pages/admin/DataPendaftarEdit";
+import DataPeserta from "./pages/admin/DataPeserta";
 import DaftarPelatihan from "./pages/admin/DaftarPelatihan";
 import DaftarPelatihanCreate from "./pages/admin/DaftarPelatihanCreate";
 import DaftarPelatihanEdit from "./pages/admin/DaftarPelatihanEdit";
@@ -52,6 +55,7 @@ export default function App() {
         <Route path="pelatihan" element={<Pelatihan />} />
         <Route path="jadwal-training" element={<JadwalTraining />} />
         <Route path="pendaftaran" element={<Pendaftaran />} />
+        <Route path="sertifikat" element={<Sertifikat />} />
       </Route>
 
       {/* Halaman Login Admin - Tetap di luar layout Admin */}
@@ -74,6 +78,7 @@ export default function App() {
           <Route path="dashboard" element={<DashboardAdmin />} />
           <Route path="data-pendaftar" element={<DataPendaftar />} />
           <Route path="data-pendaftar-edit/:id" element={<DataPendaftarEdit />} />
+          <Route path="data-peserta" element={<DataPeserta />} />
           <Route path="jadwal-training" element={< Jadwal/>} />
           <Route path="daftar-pelatihan" element={<DaftarPelatihan />} />
           <Route path="daftar-pelatihan-create" element={<DaftarPelatihanCreate />} />

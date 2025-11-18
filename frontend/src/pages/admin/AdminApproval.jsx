@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5000/api/admin";
+const API_URL = "https://api.geomandirikreasi.pblweb0201.cloud/api/admin";
 
 export default function AdminApproval() {
   const [allAdmins, setAllAdmins] = useState([]);

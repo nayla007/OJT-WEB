@@ -162,6 +162,19 @@ export default function Navbar() {
 
               <li className="nav-item">
                 <NavLink
+                  to="/sertifikat"
+                  className={({ isActive }) =>
+                    `nav-link fw-semibold px-3 ${
+                      isActive ? "text-success" : "text-dark"
+                    }`
+                  }
+                >
+                  E-Sertifikat
+                </NavLink>
+              </li>
+
+              <li className="nav-item">
+                <NavLink
                   to="/pendaftaran"
                   className={({ isActive }) =>
                     `nav-link fw-semibold px-3 ${

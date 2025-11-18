@@ -1,12 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import React from "react";
+import { useState } from "react";
 import { Nav } from 'react-bootstrap'; 
 
 export default function AdminNavbar() {
   const { user, logout } = useAuth();
   const isSuperAdmin = user?.role === "superadmin";
   const navigate = useNavigate();
+  const [isHover, setIsHover] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -24,51 +25,116 @@ export default function AdminNavbar() {
         
         {/* Dashboard */}
         <Nav.Item>
-          <Nav.Link as={NavLink} to="/admin/dashboard" className="text-white">
-            <i className="bi bi-speedometer2 me-2"></i> Dashboard
-          </Nav.Link>
-        </Nav.Item>
+      <Nav.Link
+        as={NavLink}
+        to="/admin/dashboard"
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        style={({ isActive }) => ({
+          color: isActive ? "yellow" : "white",
+          fontWeight: 600,
+          padding: "0.5rem 1rem",
+          textDecoration: "none",
+          transition: "color 0.2s",
+        })}
+      >
+        <i className="bi bi-speedometer2 me-2"></i> Dashboard
+      </Nav.Link>
+    </Nav.Item>
 
         {/* Data Pendaftar */}
         <Nav.Item>
-          <Nav.Link as={NavLink} to="/admin/data-pendaftar" className="text-white">
+          <Nav.Link as={NavLink} to="/admin/data-pendaftar" 
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+          style={({ isActive }) => ({
+          color: isActive ? "yellow" : "white",
+          fontWeight: 600,
+          padding: "0.5rem 1rem",
+          textDecoration: "none",
+          transition: "color 0.2s",
+        })}>
             <i className="bi bi-person-lines-fill me-2"></i> Data Pendaftar
           </Nav.Link>
         </Nav.Item>
 
+        {/* Data Peserta */}
+        <Nav.Item>
+          <Nav.Link as={NavLink} to="/admin/data-peserta" 
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(true)}
+          style={({ isActive }) => ({
+          color: isActive ? "yellow" : "white",
+          fontWeight: 600,
+          padding: "0.5rem 1rem",
+          textDecoration: "none",
+          transition: "color 0.2s",
+        })}>
+            <i className="bi bi-person-vcard me-2"></i> Data Peserta
+          </Nav.Link>
+        </Nav.Item>
+
         {/* Data Pendaftar */}
         <Nav.Item>
-          <Nav.Link as={NavLink} to="/admin/jadwal-training" className="text-white">
-            <i className="bi bi-person-lines-fill me-2"></i> Jadwal Training
+          <Nav.Link as={NavLink} to="/admin/jadwal-training" 
+          onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        style={({ isActive }) => ({
+          color: isActive ? "yellow" : "white",
+          fontWeight: 600,
+          padding: "0.5rem 1rem",
+          textDecoration: "none",
+          transition: "color 0.2s",
+        })}>
+            <i className="bi bi-calendar-check me-2"></i> Jadwal Training
           </Nav.Link>
         </Nav.Item>
         
         {/* Daftar Pelatihan */}
         <Nav.Item>
-          <Nav.Link as={NavLink} to="/admin/daftar-pelatihan" className="text-white">
+          <Nav.Link as={NavLink} to="/admin/daftar-pelatihan" 
+          onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        style={({ isActive }) => ({
+          color: isActive ? "yellow" : "white",
+          fontWeight: 600,
+          padding: "0.5rem 1rem",
+          textDecoration: "none",
+          transition: "color 0.2s",
+        })}>
             <i className="bi bi-journal-text me-2"></i> Daftar Pelatihan
           </Nav.Link>
         </Nav.Item>
 
         {/* Kategori Pelatihan */}
         <Nav.Item>
-          <Nav.Link as={NavLink} to="/admin/kategori-pelatihan" className="text-white">
+          <Nav.Link as={NavLink} to="/admin/kategori-pelatihan" 
+          onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        style={({ isActive }) => ({
+          color: isActive ? "yellow" : "white",
+          fontWeight: 600,
+          padding: "0.5rem 1rem",
+          textDecoration: "none",
+          transition: "color 0.2s",
+        })}>
             <i className="bi bi-tags-fill me-2"></i> Kategori Pelatihan
           </Nav.Link>
         </Nav.Item>
 
-        {/* Kategori Pelatihan */}
-        <Nav.Item>
-          <Nav.Link as={NavLink} to="#" className="text-white">
-            <i className="bi bi-tags-fill me-2"></i> Sertifikasi
-          </Nav.Link>
-        </Nav.Item>
-        
         {/* Admin Approval (Hanya untuk SuperAdmin) */}
         {isSuperAdmin && (
           <Nav.Item>
-            <Nav.Link as={NavLink} to="/admin/approval" className="text-white fw-bold">
-              <i className="bi bi-person-check-fill me-2"></i> Admin Approval
+            <Nav.Link as={NavLink} to="/admin/approval" onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        style={({ isActive }) => ({
+          color: isActive ? "yellow" : "white",
+          fontWeight: 600,
+          padding: "0.5rem 1rem",
+          textDecoration: "none",
+          transition: "color 0.2s",
+        })}>
+              <i className="bi bi-person-fill-gear me-2"></i> Admin Approval
             </Nav.Link>
           </Nav.Item>
         )}

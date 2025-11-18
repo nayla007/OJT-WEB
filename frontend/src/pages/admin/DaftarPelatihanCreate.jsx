@@ -24,7 +24,7 @@ export default function DaftarPelatihanCreate() {
   useEffect(() => {
     const fetchKategori = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/kategori-pelatihan");
+        const response = await axios.get("https://api.geomandirikreasi.pblweb0201.cloud/kategori-pelatihan");
         setKategori(response.data);
       } catch (error) {
         console.error("Gagal mengambil data kategori:", error);
@@ -57,7 +57,7 @@ export default function DaftarPelatihanCreate() {
       }
 
       const response = await axios.post(
-        "http://localhost:5000/daftar-pelatihan",
+        "https://api.geomandirikreasi.pblweb0201.cloud/daftar-pelatihan",
         formData,
         {
           headers: {
