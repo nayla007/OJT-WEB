@@ -30,6 +30,10 @@ model data_pelatihan {
   file_url            String?
   kategori            kategori_pelatihan @relation(fields: [id_kategori], references: [id_kategori])
 
+  // tambahan
+  jadwal    jadwal[]
+  pendaftar datapendaftar[]
+
   @@index([id_kategori], map: "data_pelatihan_id_kategori_fkey")
 }
 
@@ -51,15 +55,28 @@ model datapendaftar {
   namaPeserta  String
   telPeserta   String
   emailPeserta String
-  pelatihan    String
+
+  //tambahan
+  id_pelatihan Int
+  pelatihanRef data_pelatihan @relation(fields: [id_pelatihan], references: [id_pelatihan], onDelete: Cascade)
+
+  buktiBayar String?
+  status     String  @default("MENUNGGU_BAYAR")
+
+  peserta DataPeserta?
 }
 
-model jadwal {
-  id      Int     @id @default(autoincrement())
-  bidang  String
-  nama    String
-  harga   Int
-  jmlHari Int
-  bulan   String?
-  tanggal String?
+c
+
+// tambahan
+model DataPeserta {
+  id                 Int      @id @default(autoincrement())
+  id_data_pendaftar  Int      @unique
+  tanggal_konfirmasi DateTime @default(now())
+
+  // Tambahan untuk sertifikat
+  nomorSertifikat String? @unique
+  fileSertifikat  String?
+
+  pendaftar datapendaftar @relation(fields: [id_data_pendaftar], references: [id], onDelete: Cascade)
 }

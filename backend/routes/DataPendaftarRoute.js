@@ -4,15 +4,22 @@ import {
     getDataPendaftarById,
     createDataPendaftar,
     updateDataPendaftar,
-    deleteDataPendaftar
+    deleteDataPendaftar,
+    uploadBuktiDanKonfirmasi
     } from "../controllers/DataPendaftarController.js";
+import { uploadBuktiMiddleware } from "../middlewares/BuktiBayar.js";
 
 const router = express.Router();
 
-router.get('/data-pendaftar', getDataPendaftar);
-router.get('/data-pendaftar/:id', getDataPendaftarById);
-router.post('/data-pendaftar', createDataPendaftar);
-router.put('/data-pendaftar/:id', updateDataPendaftar);
-router.delete('/data-pendaftar/:id', deleteDataPendaftar);
+router.get('/', getDataPendaftar);
+router.get('/:id', getDataPendaftarById);
+router.post('/', createDataPendaftar);
+router.put('/:id', updateDataPendaftar);
+router.delete('/:id', deleteDataPendaftar);
+router.post(
+  "/data-peserta/konfirmasi", 
+  uploadBuktiMiddleware.single('buktiDaftarUlang'), 
+  uploadBuktiDanKonfirmasi
+);
 
 export default router;

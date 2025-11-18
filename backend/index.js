@@ -5,11 +5,14 @@ import dataPendaftarRoutes from "./routes/DataPendaftarRoute.js";
 import jadwalRoutes from "./routes/JadwalRoutes.js";
 import KategoriPelatihanRoute from "./routes/KategoriPelatihanRoute.js";
 import DaftarPelatihanRoute from "./routes/DaftarPelatihanRoute.js";
+import DataPesertaRoute from "./routes/DataPesertaRoute.js";
+import SertifikatRoute from "./routes/SertifikatRoute.js";
+
 
 // import pelatihanRoutes from "./routes/PelatihanRoutes.js"
 
 
-import DataPendaftar from "./routes/DataPendaftarRoute.js";
+// import DataPendaftar from "./routes/DataPendaftarRoute.js";
 import AuthRoute from "./routes/AuthRoute.js"
 
 import AdminRoute from "./routes/AdminRoute.js"
@@ -24,12 +27,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-app.use('/api', DataPendaftar)
+// app.use('/api', DataPendaftar)
 app.use('/api/auth', AuthRoute)
 app.use('/api/admin', AdminRoute)
 app.use("/kategori-pelatihan", KategoriPelatihanRoute);
 app.use("/daftar-pelatihan", DaftarPelatihanRoute);
-app.use('/uploads', express.static('uploads'));
+app.use("/api", DataPesertaRoute);
+app.use("/api", SertifikatRoute);
+
+
+app.use('/uploads/pelatihan', express.static('uploads/pelatihan'));
+app.use('/uploads/bukti', express.static('uploads/bukti'));
+app.use('/uploads/sertifikat', express.static('uploads/sertifikat'));
 
 app.use((err, req, res, next) => {
   console.error(err);
@@ -39,7 +48,7 @@ app.use((err, req, res, next) => {
 });
 
 // routes
-app.use("/api/pendaftar", dataPendaftarRoutes);  // untuk admin
+app.use("/api/data-pendaftar", dataPendaftarRoutes);  // untuk admin
 app.use("/api/jadwal", jadwalRoutes);            // untuk user
 // app.use("/api/pelatihan", pelatihanRoutes);
 

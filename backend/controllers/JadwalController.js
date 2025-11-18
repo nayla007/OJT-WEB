@@ -1,4 +1,4 @@
-import { PrismaClient } from "../src/generated/index.js";
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export const getAllJadwal = async (req, res) => {
@@ -24,7 +24,7 @@ export const getJadwalById = async (req, res) => {
 
 export const createJadwal = async (req, res) => {
   try {
-    const { bidang, nama, harga, jmlHari, bulan, tanggal } = req.body;
+    const { bidang, nama, harga, jmlHari, bulan, tanggal, id_pelatihan } = req.body;
     const newJadwal = await prisma.jadwal.create({
       data: {
         bidang,
@@ -33,6 +33,7 @@ export const createJadwal = async (req, res) => {
         jmlHari: Number(jmlHari),
         bulan,
         tanggal,
+        id_pelatihan: Number(id_pelatihan)
       },
     });
     res.json(newJadwal);
@@ -43,10 +44,18 @@ export const createJadwal = async (req, res) => {
 
 export const updateJadwal = async (req, res) => {
   try {
-    const { bidang, nama, harga, jmlHari, bulan, tanggal } = req.body;
+    const { bidang, nama, harga, jmlHari, bulan, tanggal, id_pelatihan } = req.body;
     const update = await prisma.jadwal.update({
       where: { id: Number(req.params.id) },
-      data: { bidang, nama, harga: Number(harga), jmlHari: Number(jmlHari), bulan, tanggal },
+      data: { 
+        bidang,
+        nama,
+        harga: Number(harga),
+        jmlHari: Number(jmlHari),
+        bulan,
+        tanggal,
+        id_pelatihan: Number(id_pelatihan)
+      },
     });
     res.json(update);
   } catch (err) {

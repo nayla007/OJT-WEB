@@ -75,6 +75,8 @@ export const createDaftarPelatihan = async (req, res) => {
   }
 };
 
+
+
 export const updateDaftarPelatihan = async (req, res) => {
   const { id } = req.params;
 

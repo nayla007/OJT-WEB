@@ -6,14 +6,14 @@ import {
     updateDaftarPelatihan,
     deleteDaftarPelatihan
 } from "../controllers/DaftarPelatihanController.js";
-import upload from "../middlewares/upload.js";
+import uploadPelatihan from "../middlewares/UploadPelatihan.js";
 
 const router = express.Router();
 
 router.get('/', getDaftarPelatihan);
 router.get('/:id', getDaftarPelatihanById);
-router.post('/', upload.single('file'), createDaftarPelatihan);
-router.put('/:id', upload.single('file'), updateDaftarPelatihan);
+router.post('/', uploadPelatihan.single('file'), createDaftarPelatihan);
+router.put('/:id', uploadPelatihan.single('file'), updateDaftarPelatihan);
 router.delete('/:id', deleteDaftarPelatihan);
 
 export default router;

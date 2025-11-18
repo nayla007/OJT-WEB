@@ -19,8 +19,8 @@ CREATE TABLE `data_pelatihan` (
     `biaya` VARCHAR(191) NOT NULL,
     `fasilitas` VARCHAR(191) NOT NULL,
     `contact` VARCHAR(191) NOT NULL,
-    `nama_kategori` VARCHAR(191) NOT NULL,
     `id_kategori` INTEGER NOT NULL,
+    `file_url` VARCHAR(191) NULL,
 
     INDEX `data_pelatihan_id_kategori_fkey`(`id_kategori`),
     PRIMARY KEY (`id_pelatihan`)
@@ -50,6 +50,9 @@ CREATE TABLE `datapendaftar` (
     `telPeserta` VARCHAR(191) NOT NULL,
     `emailPeserta` VARCHAR(191) NOT NULL,
     `pelatihan` VARCHAR(191) NOT NULL,
+    `id_pelatihan` INTEGER NOT NULL,
+    `buktiBayar` VARCHAR(191) NULL,
+    `status` VARCHAR(191) NOT NULL DEFAULT 'MENUNGGU_BAYAR',
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -63,10 +66,32 @@ CREATE TABLE `jadwal` (
     `jmlHari` INTEGER NOT NULL,
     `bulan` VARCHAR(191) NULL,
     `tanggal` VARCHAR(191) NULL,
+    `id_pelatihan` INTEGER NOT NULL,
 
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `DataPeserta` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id_data_pendaftar` INTEGER NOT NULL,
+    `tanggal_konfirmasi` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `nomorSertifikat` VARCHAR(191) NULL,
+    `fileSertifikat` VARCHAR(191) NULL,
+
+    UNIQUE INDEX `DataPeserta_id_data_pendaftar_key`(`id_data_pendaftar`),
+    UNIQUE INDEX `DataPeserta_nomorSertifikat_key`(`nomorSertifikat`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
 ALTER TABLE `data_pelatihan` ADD CONSTRAINT `data_pelatihan_id_kategori_fkey` FOREIGN KEY (`id_kategori`) REFERENCES `kategori_pelatihan`(`id_kategori`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
+-- AddForeignKey
+ALTER TABLE `datapendaftar` ADD CONSTRAINT `datapendaftar_id_pelatihan_fkey` FOREIGN KEY (`id_pelatihan`) REFERENCES `data_pelatihan`(`id_pelatihan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `jadwal` ADD CONSTRAINT `jadwal_id_pelatihan_fkey` FOREIGN KEY (`id_pelatihan`) REFERENCES `data_pelatihan`(`id_pelatihan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `DataPeserta` ADD CONSTRAINT `DataPeserta_id_data_pendaftar_fkey` FOREIGN KEY (`id_data_pendaftar`) REFERENCES `datapendaftar`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
